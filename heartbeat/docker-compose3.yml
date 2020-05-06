@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    #restart: always
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  nimbus:
+    image: storm
+    container_name: nimbus
+    command: storm nimbus
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    #restart: always
+    ports:
+      - 6627:6627
+  nifi:
+    image: apache/nifi:latest
+    #volumes:
+    #  - /home/chris/ubuntu/nifi/conf/data:/opt/nifi/nifi-current/conf
+    ports:
+      - 8080 # Unsecured HTTP Web Port
+    environment:
+      - NIFI_WEB_HTTP_PORT=8080
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+      - NIFI_ZK_CONNECT_STRING=zookeeper:2181
+      - NIFI_ELECTION_MAX_WAIT=1 min
+
+  supervisor:
+    image: storm
+    container_name: supervisor
+    command: storm supervisor
+    depends_on:
+      - nimbus
+      - zookeeper
+    links:
+      - nimbus
+      - zookeeper
+    #restart: always
