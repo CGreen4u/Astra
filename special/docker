@@ -4,6 +4,7 @@ USER root
 RUN mkdir /lib/jdbc
 WORKDIR /lib/jdbc
 RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.12.jar
+RUN pwd
 RUN ls
 
 USER nifi
