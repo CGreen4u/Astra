@@ -1,0 +1,14 @@
+FROM apache/nifi
+
+USER root
+RUN mkdir /lib/jdbc
+WORKDIR /lib/jdbc
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.12.jre6.jar
+RUN cp ./sqljdbc_6.2/enu/postgresql-42.2.12.jre6.jar ./
+
+USER nifi
+
+EXPOSE 8080 8443 10000 8000
+
+WORKDIR ${NIFI_HOME}
+ENTRYPOINT ["../scripts/start.sh"]
