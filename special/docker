@@ -3,7 +3,7 @@ FROM apache/nifi
 USER root
 RUN mkdir /lib/jdbc
 WORKDIR /lib/jdbc
-RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.12.jar
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.12.jre7.jar
 RUN pwd
 RUN ls
 
