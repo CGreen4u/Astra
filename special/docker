@@ -1,10 +1,10 @@
 FROM apache/nifi
 
 #COPY our_process.nar /opt/nifi/nifi-1.6.0/lib/
-COPY heartbeatv4.xml /opt/nifi/nifi-1.6.0/conf/templates
-COPY heartbeatv3.xml /opt/nifi/nifi-1.6.0/conf/templates
-COPY heartbeatv2.xml /opt/nifi/nifi-1.6.0/conf/templates
-COPY saved_with_website.xml /opt/nifi/nifi-1.6.0/conf/templates
+COPY special/heartbeatv4.xml /opt/nifi/nifi-1.6.0/conf/templates
+COPY special/heartbeatv3.xml /opt/nifi/nifi-1.6.0/conf/templates
+COPY special/heartbeatv2.xml /opt/nifi/nifi-1.6.0/conf/templates
+COPY special/saved_with_website.xml /opt/nifi/nifi-1.6.0/conf/templates
 
 USER root
 RUN mkdir /lib/jdbc
